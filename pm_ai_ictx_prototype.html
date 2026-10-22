@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#07182d">
+<title>PM AI — Powered by ICTX PM</title>
+<style>
+:root{color-scheme:dark;--bg:#07182d;--panel:#0d2540;--line:#234664;--cyan:#52d5ff;--text:#f4f8ff;--muted:#b7c9dc}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(150deg,#07182d,#0b1d36 60%,#081326);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+header{max-width:900px;margin:auto;padding:22px 18px 10px;display:flex;align-items:center;gap:12px}
+.logo{width:48px;height:48px;border-radius:14px;background:#123a65;border:1px solid #2e6e9b;display:grid;place-items:center;color:var(--cyan);font-weight:900;font-size:20px}
+h1{font-size:21px;margin:0}header p{margin:3px 0 0;color:var(--cyan);font-size:12px;letter-spacing:1.4px}
+main{max-width:900px;margin:0 auto;padding:12px 16px 24px}.hero{padding:20px 4px 14px}.hero h2{font-size:clamp(27px,6vw,40px);margin:0 0 8px;line-height:1.1}.hero h2 span{color:var(--cyan)}.hero p{color:var(--muted);margin:0;line-height:1.55}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin:18px 0}.chip{border:1px solid var(--line);background:#0b2038;color:#d9eaff;border-radius:999px;padding:9px 12px;cursor:pointer}
+.chat{border:1px solid var(--line);background:#091b30;border-radius:18px;overflow:hidden;box-shadow:0 12px 35px #0003}.chathead{padding:13px 16px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}.status{font-size:12px;color:#9dd9b5}.messages{height:min(48vh,430px);min-height:270px;overflow:auto;padding:16px;display:flex;flex-direction:column;gap:12px}
+.msg{max-width:90%;padding:12px 14px;border-radius:15px;white-space:pre-wrap;line-height:1.5;overflow-wrap:anywhere}.bot{align-self:flex-start;background:#102b46;border:1px solid #1b3b58}.user{align-self:flex-end;background:#075b85}.inputrow{display:flex;gap:8px;padding:12px;border-top:1px solid var(--line);background:#0b2038}.inputrow textarea{flex:1;resize:vertical;min-height:46px;max-height:130px;border:1px solid #2a4c68;background:#07182d;color:white;border-radius:12px;padding:12px;font:inherit}.btn{border:0;border-radius:12px;padding:0 18px;background:var(--cyan);color:#042038;font-weight:800;cursor:pointer}.btn:disabled{opacity:.5}.note{font-size:12px;color:#91a8bf;line-height:1.5;margin:12px 2px}.foot{text-align:center;color:#8fa8c0;font-size:12px;padding:20px}
+</style>
+</head>
+<body>
+<header><div class="logo">PM</div><div><h1>PM AI</h1><p>POWERED BY ICTX PM</p></div></header>
+<main>
+<section class="hero"><h2>Think. Create. <span>Achieve.</span></h2><p>Your smart assistant for ICT, learning, business, writing and everyday questions. Chat in English or Kiswahili.</p></section>
+<div class="chips">
+<button class="chip" data-prompt="Teach me the basics of HTML and give me a small example.">💻 Learn coding</button>
+<button class="chip" data-prompt="Help me write a professional CV for a job in Kenya. Ask me what details you need.">📝 CV & jobs</button>
+<button class="chip" data-prompt="Give me a practical business marketing idea for a small business in Kenya.">💼 Business ideas</button>
+<button class="chip" data-prompt="Nisaidie kujifunza teknolojia kwa Kiswahili rahisi.">🌍 Kiswahili</button>
+</div>
+<section class="chat">
+<div class="chathead"><strong>💬 Chat with PM AI</strong><span class="status" id="status">Prototype mode</span></div>
+<div class="messages" id="messages" aria-live="polite"><div class="msg bot">Karibu PM AI! 👋\nI’m your ICTX PM assistant prototype. Ask me a question below.\n\nThis starter version works without an API key and gives demo responses. To get real AI answers, connect a model through a secure backend.</div></div>
+<form id="form" class="inputrow"><textarea id="prompt" aria-label="Your message" placeholder="Ask PM AI anything…" required></textarea><button class="btn" id="send" type="submit">Send</button></form>
+</section>
+<p class="note">Privacy note: this demo keeps chat messages in this page only; it does not save them to a server. Do not enter passwords, banking details or other sensitive information.</p>
+<div class="foot">PM AI · Powered by ICTX PM · Built for a smarter future</div>
+</main>
+<script>
+const messages=document.getElementById('messages'),form=document.getElementById('form'),input=document.getElementById('prompt'),status=document.getElementById('status');
+function add(text,who){const d=document.createElement('div');d.className='msg '+who;d.textContent=text;messages.appendChild(d);messages.scrollTop=messages.scrollHeight}
+function demoAnswer(q){const s=q.toLowerCase();
+ if(/^(hi|hello|hey|habari|niaje)\b/.test(s))return "Hello! Karibu PM AI. 😊 I can help you explore ICT, writing, education, careers and business. What would you like to work on?";
+ if(/html|website|code|coding|python|ict/.test(s))return "Let's learn step by step! 💻\n\nFor a first website, learn these basics:\n1. HTML structures the page.\n2. CSS styles the page.\n3. JavaScript adds interaction.\n\nExample HTML:\n<h1>Karibu PM AI</h1>\n<p>Powered by ICTX PM</p>\n\nThis is a demo response. Connect an AI model to get answers tailored to your full question.";
+ if(/cv|job|application|interview/.test(s))return "I can help you prepare a strong, truthful CV and job application. Start by sharing the job title, your education, relevant experience and skills. Never share passwords or ID document numbers here.";
+ if(/business|marketing|advert/.test(s))return "A practical business tip: choose one clear customer group, explain the problem you solve, show your price or main benefit, and include one easy way to contact you. I can help draft an advert once you tell me the business type.";
+ if(/kiswahili|swahili|habari|nisaidie/.test(s))return "Karibu! 😊 Naweza kukusaidia kujifunza ICT, kuandika CV, kuandaa matangazo ya biashara na kuelewa teknolojia. Ungependa tuanze na nini?";
+ return "Asante kwa swali lako! Hii ni prototype ya PM AI, kwa hiyo bado haina muunganisho wa AI wa kutoa majibu halisi kwa kila swali.\n\nHatua inayofuata ni kuunganisha AI model kupitia backend salama. Usitie API key ndani ya faili hii ya umma. Swali lako: “"+q+"”";
+}
+form.addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(!q)return;add(q,'user');input.value='';add(demoAnswer(q),'bot')});
+document.querySelectorAll('[data-prompt]').forEach(b=>b.addEventListener('click',()=>{input.value=b.dataset.prompt;input.focus()}));
+input.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();form.requestSubmit()}});
+</script>
+</body></html>
